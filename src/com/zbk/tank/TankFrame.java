@@ -56,6 +56,22 @@ public class TankFrame extends Frame {
             case RIGHT:
                 x += 10;
                 break;
+            case UL:
+                y -= 10;
+                x -= 10;
+                break;
+            case UR:
+                y -= 10;
+                x += 10;
+                break;
+            case DL:
+                y += 10;
+                x -= 10;
+                break;
+            case DR:
+                y += 10;
+                x += 10;
+                break;
             default:
                 break;
         }
@@ -112,10 +128,14 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if(bL) dir = Dir.LEFT;
-            else if(bR) dir = Dir.RIGHT;
-            else if(bU) dir = Dir.UP;
-            else if(bD) dir = Dir.DOWN;
+            if (bL && bU) dir = Dir.UL;
+            else if (bL && bD) dir = Dir.DL;
+            else if (bR && bU) dir = Dir.UR;
+            else if (bR && bD) dir = Dir.DR;
+            else if (bL) dir = Dir.LEFT;
+            else if (bR) dir = Dir.RIGHT;
+            else if (bU) dir = Dir.UP;
+            else if (bD) dir = Dir.DOWN;
             else dir = Dir.DEFAULT;
         }
 

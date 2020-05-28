@@ -5,5 +5,5 @@ package com.zbk.tank;
  * @date 2020/5/28 - 2:01
  */
 public enum Dir {
-    UP,DOWN,LEFT,RIGHT,DEFAULT;
+    UP,DOWN,LEFT,RIGHT,UL,UR,DL,DR,DEFAULT;
 }
