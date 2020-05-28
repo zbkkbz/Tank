@@ -8,6 +8,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @program: Tank
@@ -21,7 +23,7 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
 
    Tank tank = new Tank(200, 200, this);
-   Bullet bullet = new Bullet(300,300,Dir.DOWN);
+   List<Bullet> bulletList = new ArrayList();
    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() throws HeadlessException {
@@ -43,8 +45,14 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
+        g.drawString("bullet num:" + bulletList.size(), 10, 60);
         tank.paint(g);
-        bullet.paint(g);
+
+        //这里使用iterator的话会出现correntmodificationException
+        //使用iterator遍历的时候,不能删除遍历list里面正在便利的对象
+        for (int i = 0; i < bulletList.size(); i++){
+            bulletList.get(i).paint(g);
+        }
     }
 
     class MyKeyListener extends KeyAdapter{

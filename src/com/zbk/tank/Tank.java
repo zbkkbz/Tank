@@ -106,6 +106,6 @@ public class Tank {
     }
 
     public void fire() {
-        tankFrame.bullet = new Bullet(x, y, dir);
+        tankFrame.bulletList.add(new Bullet(x, y, dir, tankFrame));
     }
 }
