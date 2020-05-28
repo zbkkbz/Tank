@@ -20,9 +20,7 @@ import java.awt.event.WindowEvent;
  **/
 public class TankFrame extends Frame {
 
-    int x = 200, y=200;
-    Dir dir = Dir.DEFAULT;
-    private static final int SPEED = 10;
+   Tank tank = new Tank(200, 200);
     public TankFrame() throws HeadlessException {
         setSize(800,600);
         setResizable(false);
@@ -42,39 +40,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x, y, 50, 50);
-        switch (dir){
-            case UP:
-                y -= SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-            case LEFT:
-                x -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case UL:
-                y -= SPEED;
-                x -= SPEED;
-                break;
-            case UR:
-                y -= SPEED;
-                x += SPEED;
-                break;
-            case DL:
-                y += SPEED;
-                x -= SPEED;
-                break;
-            case DR:
-                y += SPEED;
-                x += SPEED;
-                break;
-            default:
-                break;
-        }
+        tank.paint(g);
     }
 
     class MyKeyListener extends KeyAdapter{
@@ -128,16 +94,15 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if (bL && bU) dir = Dir.UL;
-            else if (bL && bD) dir = Dir.DL;
-            else if (bR && bU) dir = Dir.UR;
-            else if (bR && bD) dir = Dir.DR;
-            else if (bL) dir = Dir.LEFT;
-            else if (bR) dir = Dir.RIGHT;
-            else if (bU) dir = Dir.UP;
-            else if (bD) dir = Dir.DOWN;
-            else dir = Dir.DEFAULT;
+            if (bL && bU) tank.setDir(Dir.UL);
+            else if (bL && bD) tank.setDir(Dir.DL);
+            else if (bR && bU) tank.setDir(Dir.UR);
+            else if (bR && bD) tank.setDir(Dir.DR);
+            else if (bL) tank.setDir(Dir.LEFT);
+            else if (bR) tank.setDir(Dir.RIGHT);
+            else if (bU) tank.setDir(Dir.UP);
+            else if (bD) tank.setDir(Dir.DOWN);
+            else tank.setDir(Dir.DEFAULT);
         }
-
     }
 }
