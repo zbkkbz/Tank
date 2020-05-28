@@ -45,32 +45,32 @@ public class TankFrame extends Frame {
         g.fillRect(x, y, 50, 50);
         switch (dir){
             case UP:
-                y -= 10;
+                y -= SPEED;
                 break;
             case DOWN:
-                y += 10;
+                y += SPEED;
                 break;
             case LEFT:
-                x -= 10;
+                x -= SPEED;
                 break;
             case RIGHT:
-                x += 10;
+                x += SPEED;
                 break;
             case UL:
-                y -= 10;
-                x -= 10;
+                y -= SPEED;
+                x -= SPEED;
                 break;
             case UR:
-                y -= 10;
-                x += 10;
+                y -= SPEED;
+                x += SPEED;
                 break;
             case DL:
-                y += 10;
-                x -= 10;
+                y += SPEED;
+                x -= SPEED;
                 break;
             case DR:
-                y += 10;
-                x += 10;
+                y += SPEED;
+                x += SPEED;
                 break;
             default:
                 break;
