@@ -17,15 +17,17 @@ public class Tank {
     private static final int SPEED = 10;
     //moving是true的时候,才表示在移动
     private boolean moving = false;
+    private TankFrame tankFrame = null;
 
-    public Tank(int x, int y) {
+    public Tank(int x, int y, TankFrame tankFrame) {
         super();
         this.x = x;
         this.y = y;
+        this.tankFrame = tankFrame;
     }
 
-    public Tank(int x, int y, Dir dir) {
-        this(x, y);
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+        this(x, y, tankFrame);
         this.dir = dir;
     }
 
@@ -101,5 +103,9 @@ public class Tank {
             default:
                 break;
         }
+    }
+
+    public void fire() {
+        tankFrame.bullet = new Bullet(x, y, dir);
     }
 }
