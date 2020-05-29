@@ -18,6 +18,7 @@ public class Tank {
     //moving是true的时候,才表示在移动
     private boolean moving = false;
     private TankFrame tankFrame = null;
+    public static final int WIDTH=ResourceMgr.tankL.getWidth(), HEIGHT = ResourceMgr.tankL.getHeight();
 
     public Tank(int x, int y, TankFrame tankFrame) {
         super();
@@ -103,6 +104,8 @@ public class Tank {
     }
 
     public void fire() {
-        tankFrame.bulletList.add(new Bullet(x, y, dir, tankFrame));
+        int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        tankFrame.bulletList.add(new Bullet(bX, bY, dir, tankFrame));
     }
 }
