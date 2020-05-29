@@ -54,22 +54,6 @@ public class Bullet {
             case RIGHT:
                 x += SPEED;
                 break;
-            case UL:
-                y -= SPEED;
-                x -= SPEED;
-                break;
-            case UR:
-                y -= SPEED;
-                x += SPEED;
-                break;
-            case DL:
-                y += SPEED;
-                x -= SPEED;
-                break;
-            case DR:
-                y += SPEED;
-                x += SPEED;
-                break;
         }
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT)
             live = false;

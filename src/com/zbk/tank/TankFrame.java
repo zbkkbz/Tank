@@ -114,11 +114,7 @@ public class TankFrame extends Frame {
             else
                 tank.setMoving(true);
 
-            if (bL && bU) tank.setDir(Dir.UL);
-            else if (bL && bD) tank.setDir(Dir.DL);
-            else if (bR && bU) tank.setDir(Dir.UR);
-            else if (bR && bD) tank.setDir(Dir.DR);
-            else if (bL) tank.setDir(Dir.LEFT);
+            if (bL) tank.setDir(Dir.LEFT);
             else if (bR) tank.setDir(Dir.RIGHT);
             else if (bU) tank.setDir(Dir.UP);
             else if (bD) tank.setDir(Dir.DOWN);

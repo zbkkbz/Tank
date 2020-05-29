@@ -56,7 +56,20 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        g.fillRect(x, y, 50, 50);
+        switch (dir){
+            case RIGHT:
+                g.drawImage(ResourceMgr.tankR, x, y, null);
+                break;
+            case LEFT:
+                g.drawImage(ResourceMgr.tankL, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.tankU, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.tankD, x, y, null);
+                break;
+        }
         move();
     }
 
@@ -82,22 +95,6 @@ public class Tank {
                 x -= SPEED;
                 break;
             case RIGHT:
-                x += SPEED;
-                break;
-            case UL:
-                y -= SPEED;
-                x -= SPEED;
-                break;
-            case UR:
-                y -= SPEED;
-                x += SPEED;
-                break;
-            case DL:
-                y += SPEED;
-                x -= SPEED;
-                break;
-            case DR:
-                y += SPEED;
                 x += SPEED;
                 break;
             default:
