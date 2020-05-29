@@ -15,7 +15,7 @@ import java.awt.*;
  * @create: 2020-05-28 23:57
  **/
 public class Bullet {
-    private static final int SPEED = 10;
+    private static final int SPEED = 30;
     public static final int WIDTH=ResourceMgr.bulletD.getWidth(), HEIGHT = ResourceMgr.bulletD.getHeight();
     private int x,y;
     private Dir dir;
@@ -67,5 +67,22 @@ public class Bullet {
         }
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT)
             live = false;
+    }
+
+    public void collideWith(Tank tank) {
+        //这个是创建一个矩形,首先拿到这个bullet所在的矩形
+        Rectangle bulletRect = new Rectangle(x, y, WIDTH, HEIGHT);
+        //拿到tank所在的矩形
+        Rectangle tankRect = new Rectangle(tank.getX(),tank.getY(), Tank.WIDTH,Tank.HEIGHT);
+
+        //判断两个矩形是否有相交的地方
+        if (bulletRect.intersects(tankRect)){
+            tank.die();
+            this.die();
+        }
+    }
+
+    private void die() {
+        live = false;
     }
 }

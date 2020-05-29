@@ -19,6 +19,7 @@ public class Tank {
     private boolean moving = false;
     private TankFrame tankFrame = null;
     public static final int WIDTH=ResourceMgr.tankL.getWidth(), HEIGHT = ResourceMgr.tankL.getHeight();
+    private boolean live = true;
 
     public Tank(int x, int y, TankFrame tankFrame) {
         super();
@@ -57,6 +58,8 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if (!live) tankFrame.enemies.remove(this);
+
         switch (dir){
             case RIGHT:
                 g.drawImage(ResourceMgr.tankR, x, y, null);
@@ -107,5 +110,9 @@ public class Tank {
         int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         tankFrame.bulletList.add(new Bullet(bX, bY, dir, tankFrame));
+    }
+
+    public void die() {
+        live = false;
     }
 }

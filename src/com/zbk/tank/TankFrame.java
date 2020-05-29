@@ -22,8 +22,9 @@ import java.util.List;
  **/
 public class TankFrame extends Frame {
 
-   Tank tank = new Tank(200, 200, this);
+   Tank tank = new Tank(200, 400, this);
    List<Bullet> bulletList = new ArrayList();
+   public List<Tank> enemies = new ArrayList<>();
    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() throws HeadlessException {
@@ -43,15 +44,46 @@ public class TankFrame extends Frame {
         addKeyListener(new MyKeyListener());
     }
 
+    Image offScreenImage = null;
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null){
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.black);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        paint(gOffScreen);
+        g.drawImage(offScreenImage, 0, 0, null);
+    }
+
     @Override
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.white);
         g.drawString("bullet num:" + bulletList.size(), 10, 60);
+        g.drawString("enemies num:" + enemies.size(), 10, 80);
+
+        g.setColor(c);
+
         tank.paint(g);
 
         //这里使用iterator的话会出现correntmodificationException
         //使用iterator遍历的时候,不能删除遍历list里面正在便利的对象
         for (int i = 0; i < bulletList.size(); i++){
             bulletList.get(i).paint(g);
+        }
+
+        for (int i = 0; i < enemies.size(); i++){
+            enemies.get(i).paint(g);
+        }
+
+        for (int i = 0; i< bulletList.size();i++){
+            for (int j=0;j<enemies.size();j++){
+                bulletList.get(i).collideWith(enemies.get(j));
+            }
         }
     }
 
