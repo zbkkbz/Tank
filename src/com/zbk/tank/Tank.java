@@ -4,6 +4,7 @@ package com.zbk.tank;/**
  */
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @program: Tank
@@ -14,22 +15,25 @@ import java.awt.*;
 public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 10;
+    private static final int SPEED = 1;
     //moving是true的时候,才表示在移动
-    private boolean moving = false;
+    private boolean moving = true;
     private TankFrame tankFrame = null;
     public static final int WIDTH=ResourceMgr.tankL.getWidth(), HEIGHT = ResourceMgr.tankL.getHeight();
     private boolean live = true;
+    private Random random = new Random();
+    private Group group = Group.BAD;
 
-    public Tank(int x, int y, TankFrame tankFrame) {
+    public Tank(int x, int y,Group group, TankFrame tankFrame) {
         super();
         this.x = x;
         this.y = y;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
-        this(x, y, tankFrame);
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+        this(x, y, group, tankFrame);
         this.dir = dir;
     }
 
@@ -55,6 +59,14 @@ public class Tank {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public void paint(Graphics g) {
@@ -104,12 +116,19 @@ public class Tank {
             default:
                 break;
         }
+
+        if (random.nextInt(10) > 8)
+            this.fire();
     }
 
     public void fire() {
         int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        tankFrame.bulletList.add(new Bullet(bX, bY, dir, tankFrame));
+        if (this.group == Group.BAD){
+            tankFrame.bulletList.add(new Bullet(bX, bY, dir,Group.BAD, tankFrame));
+        }else {
+            tankFrame.bulletList.add(new Bullet(bX, bY, dir,Group.GOOD, tankFrame));
+        }
     }
 
     public void die() {

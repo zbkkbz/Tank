@@ -21,10 +21,20 @@ public class Bullet {
     private Dir dir;
     private boolean live = true;
     private TankFrame tankFrame;
+    private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
+        this.group = group;
         this.dir = dir;
         this.tankFrame = tankFrame;
     }
@@ -70,6 +80,10 @@ public class Bullet {
     }
 
     public void collideWith(Tank tank) {
+        if (this.group == tank.getGroup())
+            return;
+
+        //TODO 最好要用一个rect来记录位置,这样就可以减少垃圾回收器工作
         //这个是创建一个矩形,首先拿到这个bullet所在的矩形
         Rectangle bulletRect = new Rectangle(x, y, WIDTH, HEIGHT);
         //拿到tank所在的矩形

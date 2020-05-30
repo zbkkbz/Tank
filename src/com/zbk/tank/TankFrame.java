@@ -22,7 +22,7 @@ import java.util.List;
  **/
 public class TankFrame extends Frame {
 
-   Tank tank = new Tank(200, 400, this);
+   Tank tank = new Tank(200, 400, Group.GOOD,this);
    List<Bullet> bulletList = new ArrayList();
    public List<Tank> enemies = new ArrayList<>();
    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
