@@ -23,6 +23,7 @@ public class Tank {
     private boolean live = true;
     private Random random = new Random();
     private Group group = Group.BAD;
+    Rectangle rect = new Rectangle();
 
     public Tank(int x, int y,Group group, TankFrame tankFrame) {
         super();
@@ -30,6 +31,11 @@ public class Tank {
         this.y = y;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.height = HEIGHT;
+        rect.width = WIDTH;
     }
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
@@ -127,6 +133,9 @@ public class Tank {
         }
 
         boundsCheck();
+
+        rect.x = this.x;
+        rect.y = this.y;
 
     }
 

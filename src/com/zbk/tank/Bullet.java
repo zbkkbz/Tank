@@ -22,6 +22,7 @@ public class Bullet {
     private boolean live = true;
     private TankFrame tankFrame;
     private Group group = Group.BAD;
+    Rectangle rect = new Rectangle();
 
     public Group getGroup() {
         return group;
@@ -37,6 +38,11 @@ public class Bullet {
         this.group = group;
         this.dir = dir;
         this.tankFrame = tankFrame;
+
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     public void paint(Graphics g){
@@ -75,6 +81,10 @@ public class Bullet {
                 x += SPEED;
                 break;
         }
+
+        rect.x = this.x;
+        rect.y = this.y;
+
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT)
             live = false;
     }
@@ -84,13 +94,13 @@ public class Bullet {
             return;
 
         //TODO 最好要用一个rect来记录位置,这样就可以减少垃圾回收器工作
-        //这个是创建一个矩形,首先拿到这个bullet所在的矩形
+       /* //这个是创建一个矩形,首先拿到这个bullet所在的矩形
         Rectangle bulletRect = new Rectangle(x, y, WIDTH, HEIGHT);
         //拿到tank所在的矩形
-        Rectangle tankRect = new Rectangle(tank.getX(),tank.getY(), Tank.WIDTH,Tank.HEIGHT);
+        Rectangle tankRect = new Rectangle(tank.getX(),tank.getY(), Tank.WIDTH,Tank.HEIGHT);*/
 
         //判断两个矩形是否有相交的地方
-        if (bulletRect.intersects(tankRect)){
+        if (rect.intersects(tank.rect)){
             tank.die();
             this.die();
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
