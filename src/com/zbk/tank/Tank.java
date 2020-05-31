@@ -15,11 +15,11 @@ import java.util.Random;
 public class Tank {
     private int x, y;
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 1;
+    private static final int SPEED = 5;
     //moving是true的时候,才表示在移动
     private boolean moving = true;
     private TankFrame tankFrame = null;
-    public static final int WIDTH=ResourceMgr.tankL.getWidth(), HEIGHT = ResourceMgr.tankL.getHeight();
+    public static final int WIDTH=ResourceMgr.goodTankU.getWidth(), HEIGHT = ResourceMgr.goodTankU.getHeight();
     private boolean live = true;
     private Random random = new Random();
     private Group group = Group.BAD;
@@ -74,16 +74,16 @@ public class Tank {
 
         switch (dir){
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
                 break;
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.tankU, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
                 break;
         }
         move();
