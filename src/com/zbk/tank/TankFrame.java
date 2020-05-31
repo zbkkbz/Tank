@@ -26,7 +26,7 @@ public class TankFrame extends Frame {
    List<Bullet> bulletList = new ArrayList();
    public List<Tank> enemies = new ArrayList<>();
    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
-   Explode explode = new Explode(100, 100, this);
+   List<Explode> explodes = new ArrayList<>();
 
     public TankFrame() throws HeadlessException {
         setSize(GAME_WIDTH,GAME_HEIGHT);
@@ -66,6 +66,8 @@ public class TankFrame extends Frame {
         g.setColor(Color.white);
         g.drawString("bullet num:" + bulletList.size(), 10, 60);
         g.drawString("enemies num:" + enemies.size(), 10, 80);
+        g.drawString("explodes num:" + explodes.size(), 10, 100);
+
 
         g.setColor(c);
 
@@ -81,13 +83,16 @@ public class TankFrame extends Frame {
             enemies.get(i).paint(g);
         }
 
+        for (int i = 0; i<explodes.size();i++){
+            explodes.get(i).paint(g);
+        }
+
+        //collide with enemies
         for (int i = 0; i< bulletList.size();i++){
             for (int j=0;j<enemies.size();j++){
                 bulletList.get(i).collideWith(enemies.get(j));
             }
         }
-        explode.paint(g);
-
     }
 
     class MyKeyListener extends KeyAdapter{
