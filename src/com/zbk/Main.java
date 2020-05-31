@@ -1,17 +1,16 @@
 package com.zbk;
 
-import com.zbk.tank.Group;
-import com.zbk.tank.T;
-import com.zbk.tank.Tank;
-import com.zbk.tank.TankFrame;
+import com.zbk.tank.*;
 
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         TankFrame tankFrame = new TankFrame();
 
+        int initalTankCOunt = Integer.parseInt((String)PropertyMgr.get("initTankCount")) ;
+
         //初始化敌方坦克
-        for (int i =0; i<5; i++){
+        for (int i =0; i<initalTankCOunt; i++){
             tankFrame.enemies.add(new Tank(50 + i*80, 200, Group.BAD, tankFrame));
         }
 
