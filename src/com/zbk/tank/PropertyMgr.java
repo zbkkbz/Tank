@@ -6,6 +6,10 @@ import java.util.Properties;
 public class PropertyMgr {
     static Properties prop = new Properties();
 
+    //改造单例
+    private PropertyMgr() {
+    }
+
     static {
         try {
             prop.load(PropertyMgr.class.getClassLoader().getResourceAsStream("config/TankProperty"));
