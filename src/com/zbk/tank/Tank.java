@@ -3,6 +3,11 @@ package com.zbk.tank;/**
  * @date 2020/5/28 - 11:22
  */
 
+import com.zbk.tank.fireStragety.AllDirFire;
+import com.zbk.tank.fireStragety.DefaultFire;
+import com.zbk.tank.fireStragety.FireStragety;
+import com.zbk.tank.fireStragety.SuperSingleFire;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -125,7 +130,10 @@ public class Tank {
 
         //当是bad tank,那每次move就有1/10的概率射击
         if (this.group == Group.BAD && random.nextInt(10) > 8){
-            this.fire();
+            if (random.nextInt(100) > 90)
+                this.fire(new AllDirFire());
+            else
+                this.fire(new DefaultFire());
         }
 
         if (this.group == Group.BAD && random.nextInt(100) > 95){
@@ -150,17 +158,17 @@ public class Tank {
         this.dir = Dir.values()[random.nextInt(4)];
     }
 
-    public void fire() {
-        int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-        if (this.group == Group.BAD){
-            tankFrame.bulletList.add(new Bullet(bX, bY, dir,Group.BAD, tankFrame));
-        }else {
-            tankFrame.bulletList.add(new Bullet(bX, bY, dir,Group.GOOD, tankFrame));
-        }
+    public void fire(FireStragety fireStragety) {
+
+            fireStragety.fireWay(this);
+
     }
 
     public void die() {
         live = false;
+    }
+
+    public TankFrame getTankFrame() {
+        return tankFrame;
     }
 }

@@ -3,6 +3,8 @@ package com.zbk.tank;/**
  * @date 2020/5/27 - 23:12
  */
 
+import com.zbk.tank.fireStragety.DefaultFire;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -23,7 +25,7 @@ import java.util.List;
 public class TankFrame extends Frame {
 
    Tank tank = new Tank(200, 400, Group.GOOD,this);
-   List<Bullet> bulletList = new ArrayList();
+   public List<Bullet> bulletList = new ArrayList();
    public List<Tank> enemies = new ArrayList<>();
    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
    List<Explode> explodes = new ArrayList<>();
@@ -140,9 +142,13 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    tank.fire();
+                    tank.fire(new DefaultFire());
                     break;
                 default:
+                    bR = false;
+                    bL = false;
+                    bU = false;
+                    bD = false;
                     break;
             }
             setMainTankDir();

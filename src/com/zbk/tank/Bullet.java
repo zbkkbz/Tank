@@ -23,6 +23,8 @@ public class Bullet {
     private TankFrame tankFrame;
     private Group group = Group.BAD;
     Rectangle rect = new Rectangle();
+    private int bulletWidth = WIDTH;
+    private int bulletHeight = HEIGHT;
 
     public Group getGroup() {
         return group;
@@ -43,6 +45,31 @@ public class Bullet {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+        tankFrame.bulletList.add(this);
+    }
+
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame, int bulletWidth, int bulletHeight) {
+        this(x,y,dir,group,tankFrame);
+        this.bulletWidth = bulletWidth;
+        this.bulletHeight = bulletHeight;
+        rect.width = bulletWidth;
+        rect.height = bulletHeight;
+    }
+
+    public int getBulletWidth() {
+        return bulletWidth;
+    }
+
+    public void setBulletWidth(int bulletWidth) {
+        this.bulletWidth = bulletWidth;
+    }
+
+    public int getBulletHeight() {
+        return bulletHeight;
+    }
+
+    public void setBulletHeight(int bulletHeight) {
+        this.bulletHeight = bulletHeight;
     }
 
     public void paint(Graphics g){
@@ -53,13 +80,13 @@ public class Bullet {
                 g.drawImage(ResourceMgr.bulletR, x, y, null);
                 break;
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
+                g.drawImage(ResourceMgr.bulletL, x, y,null);
                 break;
             case UP:
                 g.drawImage(ResourceMgr.bulletU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                g.drawImage(ResourceMgr.bulletD, x, y,  null);
                 break;
         }
 
