@@ -1,9 +1,9 @@
-package com.zbk.tank;/**
+package com.zbk.tank.abstractFactory;/**
  * @author ZBK
  * @date 2020/5/28 - 11:22
  */
 
-import com.zbk.tank.abstractFactory.BaseTank;
+import com.zbk.tank.*;
 import com.zbk.tank.fireStragety.AllDirFire;
 import com.zbk.tank.fireStragety.DefaultFire;
 import com.zbk.tank.fireStragety.FireStragety;
@@ -17,17 +17,20 @@ import java.util.Random;
  * @author: Zbk
  * @create: 2020-05-28 11:22
  **/
-public class Tank extends BaseTank {
-
+public class RectTank extends BaseTank {
+    private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
     //moving是true的时候,才表示在移动
     private boolean moving = true;
     private TankFrame tankFrame = null;
-    public static final int WIDTH=ResourceMgr.goodTankU.getWidth(), HEIGHT = ResourceMgr.goodTankU.getHeight();
+    public static final int WIDTH= ResourceMgr.goodTankU.getWidth(), HEIGHT = ResourceMgr.goodTankU.getHeight();
+    private boolean live = true;
     private Random random = new Random();
+    private Group group = Group.BAD;
+    public Rectangle rect = new Rectangle();
 
-    public Tank(int x, int y,Group group, TankFrame tankFrame) {
+    public RectTank(int x, int y, Group group, TankFrame tankFrame) {
         super();
         this.x = x;
         this.y = y;
@@ -40,12 +43,26 @@ public class Tank extends BaseTank {
         rect.width = WIDTH;
     }
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public RectTank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this(x, y, group, tankFrame);
         this.dir = dir;
     }
 
+    public int getX() {
+        return x;
+    }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 
     public Dir getDir() {
         return dir;
@@ -67,20 +84,11 @@ public class Tank extends BaseTank {
     public void paint(Graphics g) {
         if (!live) tankFrame.enemies.remove(this);
 
-        switch (dir){
-            case RIGHT:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
-                break;
-            case LEFT:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
-                break;
-            case UP:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(group == Group.GOOD ? Color.RED : Color.YELLOW);
+        g.fillRect(x, y, 40, 40);
+        g.setColor(c);
+
         move();
     }
 
@@ -134,8 +142,8 @@ public class Tank extends BaseTank {
     private void boundsCheck() {
         if (x < 0) x = 0;
         else if (y < 0) y = 0;
-        else if (x > TankFrame.GAME_WIDTH - Tank.WIDTH) x = TankFrame.GAME_WIDTH - Tank.WIDTH;
-        else if (y > TankFrame.GAME_HEIGHT - Tank.HEIGHT) y = TankFrame.GAME_HEIGHT-Tank.HEIGHT;
+        else if (x > TankFrame.GAME_WIDTH - RectTank.WIDTH) x = TankFrame.GAME_WIDTH - RectTank.WIDTH;
+        else if (y > TankFrame.GAME_HEIGHT - RectTank.HEIGHT) y = TankFrame.GAME_HEIGHT- RectTank.HEIGHT;
     }
 
     private void randomDir() {
@@ -145,8 +153,8 @@ public class Tank extends BaseTank {
     public void fire(FireStragety fireStragety) {
 
            // fireStragety.fireWay(this);
-        int bX = x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int bY = y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        int bX = x + RectTank.WIDTH/2 - Bullet.WIDTH/2;
+        int bY = y + RectTank.HEIGHT/2 - Bullet.HEIGHT/2;
         if (group == Group.BAD){
             tankFrame.bulletList.add(new Bullet(bX, bY, dir, Group.BAD, tankFrame));
         }else {

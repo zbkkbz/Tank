@@ -3,6 +3,7 @@ package com.zbk.tank;/**
  * @date 2020/5/27 - 23:12
  */
 
+import com.zbk.tank.abstractFactory.*;
 import com.zbk.tank.fireStragety.DefaultFire;
 
 import java.awt.*;
@@ -25,10 +26,12 @@ import java.util.List;
 public class TankFrame extends Frame {
 
    Tank tank = new Tank(200, 400, Group.GOOD,this);
-   public List<Bullet> bulletList = new ArrayList();
-   public List<Tank> enemies = new ArrayList<>();
-   static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
-   List<Explode> explodes = new ArrayList<>();
+   public List<BaseBullet> bulletList = new ArrayList();
+   public List<BaseTank> enemies = new ArrayList<>();
+   public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+   public List<BaseExplode> explodes = new ArrayList<>();
+
+   public GameFactory factory = new DefaultFactory();
 
     public TankFrame() throws HeadlessException {
         setSize(GAME_WIDTH,GAME_HEIGHT);

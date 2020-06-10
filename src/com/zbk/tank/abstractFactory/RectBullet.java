@@ -1,10 +1,9 @@
-package com.zbk.tank;/**
+package com.zbk.tank.abstractFactory;/**
  * @author ZBK
  * @date 2020/5/28 - 23:57
  */
 
-import com.zbk.tank.abstractFactory.BaseBullet;
-import com.zbk.tank.abstractFactory.BaseTank;
+import com.zbk.tank.*;
 
 import java.awt.*;
 
@@ -17,9 +16,9 @@ import java.awt.*;
  *
  * @create: 2020-05-28 23:57
  **/
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
     private static final int SPEED = 30;
-    public static final int WIDTH=ResourceMgr.bulletD.getWidth(), HEIGHT = ResourceMgr.bulletD.getHeight();
+    public static final int WIDTH= ResourceMgr.bulletD.getWidth(), HEIGHT = ResourceMgr.bulletD.getHeight();
     private int x,y;
     private Dir dir;
     private boolean live = true;
@@ -37,7 +36,7 @@ public class Bullet extends BaseBullet {
         this.group = group;
     }
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.group = group;
@@ -51,7 +50,7 @@ public class Bullet extends BaseBullet {
         tankFrame.bulletList.add(this);
     }
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame, int bulletWidth, int bulletHeight) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame, int bulletWidth, int bulletHeight) {
         this(x,y,dir,group,tankFrame);
         this.bulletWidth = bulletWidth;
         this.bulletHeight = bulletHeight;
@@ -79,20 +78,12 @@ public class Bullet extends BaseBullet {
     public void paint(Graphics g){
         if (!live)
             tankFrame.bulletList.remove(this);
-        switch (dir){
-            case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
-                break;
-            case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y,null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y,  null);
-                break;
-        }
+
+            Color c = g.getColor();
+            g.setColor(Color.YELLOW);
+            g.fillRect(x, y, 20, 20);
+            g.setColor(c);
+
 
         move();
     }

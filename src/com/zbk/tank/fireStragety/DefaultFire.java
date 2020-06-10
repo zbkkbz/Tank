@@ -18,7 +18,7 @@ public class DefaultFire implements FireStragety {
         if (tank.getGroup() == Group.BAD){
             tank.getTankFrame().bulletList.add(new Bullet(bX, bY, tank.getDir(),Group.BAD, tank.getTankFrame()));
         }else {
-            tank.getTankFrame().bulletList.add(new Bullet(bX, bY, tank.getDir(),Group.GOOD, tank.getTankFrame()));
+            tank.getTankFrame().bulletList.add(tank.getTankFrame().factory.reateBullet(bX, bY, tank.getDir(), Group.GOOD,tank.getTankFrame()));
         }
 
     }

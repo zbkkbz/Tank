@@ -11,7 +11,7 @@ public class Main {
 
         //初始化敌方坦克
         for (int i =0; i<initalTankCOunt; i++){
-            tankFrame.enemies.add(new Tank(50 + i*80, 200, Group.BAD, tankFrame));
+            tankFrame.enemies.add(tankFrame.factory.createTank(50 + i*80, 200, Dir.DOWN, Group.BAD, tankFrame));
         }
 
         while (true){
