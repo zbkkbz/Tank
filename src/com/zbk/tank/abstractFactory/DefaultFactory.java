@@ -1,6 +1,8 @@
 package com.zbk.tank.abstractFactory;
 
 import com.zbk.tank.*;
+import com.zbk.tank.gameObjects.Bullet;
+import com.zbk.tank.gameObjects.Tank;
 
 /**
  * @program: Tank

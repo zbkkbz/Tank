@@ -7,6 +7,7 @@ import com.zbk.tank.*;
 import com.zbk.tank.fireStragety.AllDirFire;
 import com.zbk.tank.fireStragety.DefaultFire;
 import com.zbk.tank.fireStragety.FireStragety;
+import com.zbk.tank.gameObjects.Bullet;
 
 import java.awt.*;
 import java.util.Random;
