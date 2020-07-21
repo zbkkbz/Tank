@@ -1,1 +1,3 @@
 initTankCount=10
+#colliders
+colliders=com.zbk.tank.cor.BulletTankCollider,com.zbk.tank.cor.TankTankCollider

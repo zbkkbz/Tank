@@ -1,8 +1,6 @@
 package com.zbk.tank.abstractFactory;
 
-import com.zbk.tank.Dir;
-import com.zbk.tank.Group;
-import com.zbk.tank.TankFrame;
+import com.zbk.tank.*;
 
 import java.awt.*;
 
@@ -12,37 +10,69 @@ import java.awt.*;
  * @author: Des
  * @create: 2020-06-10 00:54
  **/
-public abstract class BaseTank {
+public abstract class BaseTank extends GameObject {
+
     public Rectangle rect = new Rectangle();
     public Group group = Group.BAD;
     public boolean live = true;
-    public int x, y;
+    protected int previousX, previousY;
+    protected Dir dir = Dir.DOWN;
+
+    //moving是true的时候,才表示在移动
+    protected boolean moving = true;
 
 
-
-    public abstract void paint(Graphics g);
-
-    public int getX() {
-        return x;
+    public int getPreviousX() {
+        return previousX;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setPreviousX(int previousX) {
+        this.previousX = previousX;
     }
 
-    public int getY() {
-        return y;
+    public int getPreviousY() {
+        return previousY;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setPreviousY(int previousY) {
+        this.previousY = previousY;
     }
 
-    public Group getGroup(){
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public Dir getDir() {
+        return dir;
+    }
+
+    public void setDir(Dir dir) {
+        this.dir = dir;
+    }
+
+    public Group getGroup() {
         return group;
+    }
+
+    public void setGroup(Group g) {
+        this.group = g;
     }
 
     public void die() {
         live = false;
     }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
+    }
+
+    public abstract GameModel getGm();
 }

@@ -11,8 +11,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @program: Tank
@@ -25,13 +23,16 @@ import java.util.List;
  **/
 public class TankFrame extends Frame {
 
-   Tank tank = new Tank(200, 400, Group.GOOD,this);
-   public List<BaseBullet> bulletList = new ArrayList();
-   public List<BaseTank> enemies = new ArrayList<>();
-   public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
-   public List<BaseExplode> explodes = new ArrayList<>();
+    public static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    GameModel gm = new GameModel();
 
-   public GameFactory factory = new DefaultFactory();
+    public GameModel getGm() {
+        return gm;
+    }
+
+    public void setGm(GameModel gm) {
+        this.gm = gm;
+    }
 
     public TankFrame() throws HeadlessException {
         setSize(GAME_WIDTH,GAME_HEIGHT);
@@ -65,39 +66,10 @@ public class TankFrame extends Frame {
         g.drawImage(offScreenImage, 0, 0, null);
     }
 
+
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.white);
-        g.drawString("bullet num:" + bulletList.size(), 10, 60);
-        g.drawString("enemies num:" + enemies.size(), 10, 80);
-        g.drawString("explodes num:" + explodes.size(), 10, 100);
-
-
-        g.setColor(c);
-
-        tank.paint(g);
-
-        //这里使用iterator的话会出现correntmodificationException
-        //使用iterator遍历的时候,不能删除遍历list里面正在便利的对象
-        for (int i = 0; i < bulletList.size(); i++){
-            bulletList.get(i).paint(g);
-        }
-
-        for (int i = 0; i < enemies.size(); i++){
-            enemies.get(i).paint(g);
-        }
-
-        for (int i = 0; i<explodes.size();i++){
-            explodes.get(i).paint(g);
-        }
-
-        //collide with enemies
-        for (int i = 0; i< bulletList.size();i++){
-            for (int j=0;j<enemies.size();j++){
-                bulletList.get(i).collideWith(enemies.get(j));
-            }
-        }
+        gm.paint(g);
     }
 
     class MyKeyListener extends KeyAdapter{
@@ -145,7 +117,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    tank.fire(new DefaultFire());
+                    gm.tank.fire(new DefaultFire());
                     break;
                 default:
                     bR = false;
@@ -158,15 +130,16 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
+            Tank myTank = gm.getMyTank();
             if (!bL && !bR && !bU && !bD)
-                tank.setMoving(false);
+                myTank.setMoving(false);
             else
-                tank.setMoving(true);
+                myTank.setMoving(true);
 
-            if (bL) tank.setDir(Dir.LEFT);
-            else if (bR) tank.setDir(Dir.RIGHT);
-            else if (bU) tank.setDir(Dir.UP);
-            else if (bD) tank.setDir(Dir.DOWN);
+            if (bL) myTank.setDir(Dir.LEFT);
+            else if (bR) myTank.setDir(Dir.RIGHT);
+            else if (bU) myTank.setDir(Dir.UP);
+            else if (bD) myTank.setDir(Dir.DOWN);
         }
     }
 }

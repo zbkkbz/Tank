@@ -7,7 +7,6 @@ import com.zbk.tank.*;
 import com.zbk.tank.fireStragety.AllDirFire;
 import com.zbk.tank.fireStragety.DefaultFire;
 import com.zbk.tank.fireStragety.FireStragety;
-import com.zbk.tank.gameObjects.Bullet;
 
 import java.awt.*;
 import java.util.Random;
@@ -19,24 +18,23 @@ import java.util.Random;
  * @create: 2020-05-28 11:22
  **/
 public class RectTank extends BaseTank {
-    private int x, y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
     //moving是true的时候,才表示在移动
     private boolean moving = true;
-    private TankFrame tankFrame = null;
+    private  GameModel gm;
     public static final int WIDTH= ResourceMgr.goodTankU.getWidth(), HEIGHT = ResourceMgr.goodTankU.getHeight();
     private boolean live = true;
     private Random random = new Random();
     private Group group = Group.BAD;
     public Rectangle rect = new Rectangle();
 
-    public RectTank(int x, int y, Group group, TankFrame tankFrame) {
+    public RectTank(int x, int y, Group group, GameModel gm) {
         super();
         this.x = x;
         this.y = y;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
@@ -44,26 +42,12 @@ public class RectTank extends BaseTank {
         rect.width = WIDTH;
     }
 
-    public RectTank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
-        this(x, y, group, tankFrame);
+    public RectTank(int x, int y, Dir dir, Group group, GameModel gm) {
+        this(x, y, group, gm);
         this.dir = dir;
     }
 
-    public int getX() {
-        return x;
-    }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 
     public Dir getDir() {
         return dir;
@@ -72,6 +56,7 @@ public class RectTank extends BaseTank {
     public void setDir(Dir dir) {
         this.dir = dir;
     }
+
 
     public Group getGroup() {
         return group;
@@ -83,7 +68,7 @@ public class RectTank extends BaseTank {
 
     @Override
     public void paint(Graphics g) {
-        if (!live) tankFrame.enemies.remove(this);
+        if (!live) gm.remove(this);
 
         Color c = g.getColor();
         g.setColor(group == Group.GOOD ? Color.RED : Color.YELLOW);
@@ -157,9 +142,9 @@ public class RectTank extends BaseTank {
         int bX = x + RectTank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = y + RectTank.HEIGHT/2 - Bullet.HEIGHT/2;
         if (group == Group.BAD){
-            tankFrame.bulletList.add(new Bullet(bX, bY, dir, Group.BAD, tankFrame));
+            gm.add(new Bullet(bX, bY, dir, Group.BAD, gm));
         }else {
-            tankFrame.bulletList.add(tankFrame.factory.reateBullet(bX, bY, dir, Group.GOOD,tankFrame));
+            gm.add(gm.factory.reateBullet(bX, bY, dir, Group.GOOD,gm));
         }
     }
 
@@ -167,7 +152,9 @@ public class RectTank extends BaseTank {
         live = false;
     }
 
-    public TankFrame getTankFrame() {
-        return tankFrame;
+    @Override
+    public GameModel getGm() {
+        return gm;
     }
+
 }

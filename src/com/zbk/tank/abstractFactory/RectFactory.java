@@ -1,6 +1,7 @@
 package com.zbk.tank.abstractFactory;
 
 import com.zbk.tank.Dir;
+import com.zbk.tank.GameModel;
 import com.zbk.tank.Group;
 import com.zbk.tank.TankFrame;
 
@@ -13,17 +14,17 @@ import com.zbk.tank.TankFrame;
 public class RectFactory extends GameFactory {
 
     @Override
-    public BaseTank createTank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
-        return new RectTank(x, y, dir,group,tankFrame);
+    public BaseTank createTank(int x, int y, Dir dir, Group group, GameModel gm) {
+        return new RectTank(x, y, dir,group,gm);
     }
 
     @Override
-    public BaseBullet reateBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
-        return new RectBullet(x, y, dir, group, tankFrame);
+    public BaseBullet reateBullet(int x, int y, Dir dir, Group group, GameModel gm) {
+        return new RectBullet(x, y, dir, group, gm);
     }
 
     @Override
-    public BaseExplode createExplode(int x, int y, TankFrame tankFrame) {
-        return new RectExplode(x, y, tankFrame);
+    public BaseExplode createExplode(int x, int y, GameModel gm) {
+        return new RectExplode(x, y, gm);
     }
 }

@@ -1,6 +1,6 @@
 package com.zbk.tank.abstractFactory;
 
-import java.awt.*;
+import com.zbk.tank.GameObject;
 
 /**
  * @program: Tank
@@ -8,6 +8,5 @@ import java.awt.*;
  * @author: Des
  * @create: 2020-06-10 01:20
  **/
-public abstract class BaseExplode {
-    public abstract void paint(Graphics g);
+public abstract class BaseExplode extends GameObject {
 }

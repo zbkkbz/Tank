@@ -1,8 +1,7 @@
 package com.zbk.tank.abstractFactory;
 
 import com.zbk.tank.*;
-import com.zbk.tank.gameObjects.Bullet;
-import com.zbk.tank.gameObjects.Tank;
+
 
 /**
  * @program: Tank
@@ -12,17 +11,17 @@ import com.zbk.tank.gameObjects.Tank;
  **/
 public class DefaultFactory extends GameFactory{
     @Override
-    public BaseTank createTank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
-        return new Tank(x, y, dir,group,tankFrame);
+    public BaseTank createTank(int x, int y, Dir dir, Group group, GameModel gm) {
+        return new Tank(x, y, dir,group,gm);
     }
 
     @Override
-    public BaseBullet reateBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
-        return new Bullet(x, y, dir, group, tankFrame);
+    public BaseBullet reateBullet(int x, int y, Dir dir, Group group, GameModel gm) {
+        return new Bullet(x, y, dir, group, gm);
     }
 
     @Override
-    public BaseExplode createExplode(int x, int y, TankFrame tankFrame) {
-        return new Explode(x, y, tankFrame);
+    public BaseExplode createExplode(int x, int y, GameModel gm) {
+        return new Explode(x, y, gm);
     }
 }
